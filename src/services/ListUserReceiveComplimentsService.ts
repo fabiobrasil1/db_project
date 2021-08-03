@@ -3,18 +3,21 @@ import { ComplimentsRepositories } from "../repositories/ComplimentsRepositories
 import { UsersRepositories } from "../repositories/UsersRepositories"
 
 
-class ListUserReceiveComplimentsServices {
+class ListUserReceiveComplimentsService {
 
     async execute(user_id: string){
         const complimentsRepositories = getCustomRepository(ComplimentsRepositories);
         
         const compliments = await complimentsRepositories.find({
             where: {
-                usere_receiver: user_id
-            }
+                user_receiver: user_id
+            },
+
+            relations: ["userSender","userReceiver,tag"]
+
         })
         return compliments;
     }
 }
 
-export { ListUserReceiveComplimentsServices }
+export { ListUserReceiveComplimentsService }
