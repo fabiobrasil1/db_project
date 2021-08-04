@@ -1,5 +1,8 @@
 import { getCustomRepository } from "typeorm"
+import { Highlight } from "../entities/Highlight";
+import { User } from "../entities/User";
 import { ComplimentsRepositories } from "../repositories/ComplimentsRepositories"
+import { HighlightsRepositories } from "../repositories/HighlightsRepositories";
 import { UsersRepositories } from "../repositories/UsersRepositories";
 
 interface IComplimentRequest{
@@ -25,6 +28,7 @@ class CreateComplimentService {
                 throw new Error("Incorrect user Receiver!");
             }
 
+
         const userReceiverExist = usersRepositories.findOne(user_receiver);
 
             if(!userReceiverExist) {
@@ -38,6 +42,22 @@ class CreateComplimentService {
                 message
 
             });
+            const complimentcount = await complimentsRepositories.count({
+                where: { user_receiver: user_receiver }
+            })
+
+            const highlightsRepositories = getCustomRepository(HighlightsRepositories);
+
+            if(complimentcount >= 2){
+                const highlight = await highlightsRepositories.create({
+                    highlights: "parabéns pelo desempenho",
+                    message: "",
+                    user_highlights: user_receiver 
+                })   
+                await highlightsRepositories.save(highlight);
+
+
+            }
 
             await complimentsRepositories.save(compliment);
 

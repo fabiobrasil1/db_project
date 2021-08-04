@@ -14,7 +14,7 @@ class ListUserReceiveComplimentsService {
             },
 
             relations: ["userSender","userReceiver,tag"]
-
+            
         })
         return compliments;
     }

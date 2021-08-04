@@ -1,5 +1,6 @@
-import {Entity, PrimaryColumn,Column, CreateDateColumn, UpdateDateColumn } from "typeorm";
+import {Entity, PrimaryColumn,Column, CreateDateColumn, UpdateDateColumn, OneToMany } from "typeorm";
 import {v4 as uuid} from "uuid" 
+import { Highlight } from "./Highlight";
 
 @Entity("users")
 class User {
@@ -23,6 +24,9 @@ class User {
 
     @UpdateDateColumn()
     updated_at: Date;
+
+    @OneToMany(() => Highlight, highlight => highlight.user )
+    highlights: Highlight[]
 
     constructor(){
         if(!this.id){
