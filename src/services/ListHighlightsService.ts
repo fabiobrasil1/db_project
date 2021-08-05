@@ -1,22 +1,23 @@
-import { getCustomRepository } from "typeorm"
-import { Highlight } from "../entities/Highlight";
-import { HighlightsRepositories } from "../repositories/HighlightsRepositories";
+import { getCustomRepository } from "typeorm";
+import { UsersRepositories } from "../repositories/UsersRepositories";
 
 
 
 class ListHighlightsService {
     async execute (){
-        const highlightRepositories = getCustomRepository(HighlightsRepositories);
+        const usersRepositories = getCustomRepository(UsersRepositories);
 
-        const highlight = await highlightRepositories.find({
-
+        const users = await usersRepositories.find({
+            where:{
+                highlight: true
+            }
 
 
         })
-        return highlight;
+        return users;
 
 
     }
 }
 
-export { ListHighlightsService }
+export { ListHighlightsService };

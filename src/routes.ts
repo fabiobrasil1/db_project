@@ -23,16 +23,17 @@ const listTagsController = new ListTagsController();
 const listUserController = new ListUsersController();
 const listHighlightsController = new ListHighlightsController(); 
 
-router.use(ensureAdmin);
+router.post("/login", autenticateUsercController.handle);
+// router.use(ensureAdmin);
 router.post("/tags", ensureAuthenticated,  ensureAdmin, createTagController.handle);
 router.post("/users", createUserController.handle);
-router.post("/login", autenticateUsercController.handle);
 router.post("/compliments", ensureAuthenticated ,createComplimentController.handle);
+
 
 router.get("/users/compliments/send", ensureAuthenticated, listUserSendComplimentsController.handle );
 router.get("/users/compliments/receive",ensureAuthenticated, listUserReceiveComplimentsController.handle);
 router.get("/tags", ensureAuthenticated, listTagsController.handle)
 router.get("/users", ensureAuthenticated, listUserController.handle);
-router.get("/highlights", listHighlightsController.handle)
+router.get("/highlights", ensureAuthenticated, listHighlightsController.handle)
 
 export { router };

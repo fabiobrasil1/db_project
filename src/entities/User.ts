@@ -1,6 +1,5 @@
-import {Entity, PrimaryColumn,Column, CreateDateColumn, UpdateDateColumn, OneToMany } from "typeorm";
-import {v4 as uuid} from "uuid" 
-import { Highlight } from "./Highlight";
+import { Column, CreateDateColumn, Entity, PrimaryColumn, UpdateDateColumn } from "typeorm";
+import { v4 as uuid } from "uuid";
 
 @Entity("users")
 class User {
@@ -19,14 +18,16 @@ class User {
     @Column()
     password: string;
 
+    @Column()
+    highlight: boolean;
+
     @CreateDateColumn()
     created_at: Date;
 
     @UpdateDateColumn()
     updated_at: Date;
 
-    @OneToMany(() => Highlight, highlight => highlight.user )
-    highlights: Highlight[]
+
 
     constructor(){
         if(!this.id){

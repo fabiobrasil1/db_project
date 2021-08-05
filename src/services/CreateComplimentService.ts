@@ -1,8 +1,5 @@
-import { getCustomRepository } from "typeorm"
-import { Highlight } from "../entities/Highlight";
-import { User } from "../entities/User";
-import { ComplimentsRepositories } from "../repositories/ComplimentsRepositories"
-import { HighlightsRepositories } from "../repositories/HighlightsRepositories";
+import { getCustomRepository } from "typeorm";
+import { ComplimentsRepositories } from "../repositories/ComplimentsRepositories";
 import { UsersRepositories } from "../repositories/UsersRepositories";
 
 interface IComplimentRequest{
@@ -46,15 +43,15 @@ class CreateComplimentService {
                 where: { user_receiver: user_receiver }
             })
 
-            const highlightsRepositories = getCustomRepository(HighlightsRepositories);
+           
 
             if(complimentcount >= 2){
-                const highlight = await highlightsRepositories.create({
-                    highlights: "parabéns pelo desempenho",
-                    message: "",
-                    user_highlights: user_receiver 
-                })   
-                await highlightsRepositories.save(highlight);
+                await usersRepositories.save({
+                    id: user_receiver,
+                    highlight: true
+                })
+                   
+              
 
 
             }
@@ -67,4 +64,4 @@ class CreateComplimentService {
 }
 
 
-export { CreateComplimentService }
+export { CreateComplimentService };

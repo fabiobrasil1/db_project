@@ -11,7 +11,7 @@ interface IPayload {
 
 export function ensureAuthenticated(
     request: Request,
-     response: Response,
+    response: Response,
      next: NextFunction
      ) {
 
